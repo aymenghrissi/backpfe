@@ -1,0 +1,14 @@
+package com.cnstn.dao;
+
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.cnstn.entities.Reservation;
+
+
+
+
+
+public interface ReservationRepository extends JpaRepository <Reservation ,Long>   {
+	
+}
