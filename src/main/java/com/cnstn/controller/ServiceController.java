@@ -52,13 +52,15 @@ public class ServiceController {
         backServiceService.deleteService(id);
         return ResponseEntity.noContent().build();
     }
-@PutMapping("{id}")
+@PutMapping("/services/{id}")
     
     public ResponseEntity<Service> updateService(@PathVariable("id") Long id,
-                                           @RequestBody Service service){
-        service.setId(id);
-        Service updatedService = backServiceService.updateService(service);
-        return new ResponseEntity<>(updatedService, HttpStatus.OK);
+                                           @RequestBody Service Updateservice){
+	Service service=backServiceService.LoadServiceById(id); 
+	 service.setNom(Updateservice.getNom());
+	 service.setDescription(Updateservice.getDescription());
+	 Service directionmaj= backServiceService.addService(service);
+	 return new ResponseEntity<>(directionmaj, HttpStatus.OK);
     }
 
 }

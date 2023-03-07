@@ -57,6 +57,13 @@ public class BackServiceDirectionImpl implements BackServiceDirection{
         return updatedDirection;
 	}
 
+	@Override
+	public Direction loadDirections(Long id) {
+		
+			Optional<Direction> optionaldirection = directionRepository.findById(id);
+			return  optionaldirection.get() ;
+	}
+
 	
 
 	

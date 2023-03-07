@@ -57,5 +57,15 @@ public class DirectionController {
         Direction updatedDirection = backservice.updateDirection(direction);
         return new ResponseEntity<>(updatedDirection, HttpStatus.OK);
     }
+	 @PutMapping("/directions/{id}")
+	 public ResponseEntity<Direction> updateProduct(@PathVariable Long id, @RequestBody Direction updatedProduct) {
+	     // Update the product with the given ID using the updated product data
+	     // Return the updated product as a response
+		 Direction direction=backservice.loadDirections(id); 
+		 direction.setNom(updatedProduct.getNom());
+		 direction.setDescription(updatedProduct.getDescription());
+		 Direction directionmaj= backservice.addDirections(direction);
+		 return new ResponseEntity<>(directionmaj, HttpStatus.OK);
+	    }
 
 }

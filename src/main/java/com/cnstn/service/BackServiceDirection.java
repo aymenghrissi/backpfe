@@ -12,5 +12,6 @@ public interface BackServiceDirection {
 	Direction LoadDirectionById(Long id);
 	void deleteDirection(Long id);
 	Direction updateDirection(Direction direction);
+	Direction loadDirections(Long id);
 
 }

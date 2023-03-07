@@ -45,9 +45,9 @@ public class SalleController {
         return salle;
     }
 	@DeleteMapping("{id}")
-    public ResponseEntity<String> deleteSalle(@PathVariable("id") Long id){
+    public ResponseEntity<Object> deleteSalle(@PathVariable("id") Long id){
         backServiceSalle.deleteSalle(id);
-        return new ResponseEntity<>("salle successfully deleted!", HttpStatus.OK);
+        return ResponseEntity.noContent().build();
     }
 @PutMapping("{id}")
     

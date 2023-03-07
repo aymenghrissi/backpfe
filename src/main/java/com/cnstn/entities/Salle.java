@@ -26,7 +26,7 @@ public class Salle {
 	
 	
 	@OneToMany(mappedBy = "salle", fetch = FetchType.LAZY)
-	@JsonIgnoreProperties("salle")
+	//@JsonIgnoreProperties("salle")
 	private List<Reservation> reservation= new ArrayList<Reservation>();
 
 }

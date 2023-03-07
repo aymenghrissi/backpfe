@@ -31,7 +31,7 @@ public class Service {
 	Direction direction;
 	
 	@OneToMany(mappedBy = "service", fetch = FetchType.LAZY)
-	@JsonIgnoreProperties("service")
+	//@JsonIgnoreProperties("service")
 	private List<Employee> employees= new ArrayList<Employee>();
 
 	

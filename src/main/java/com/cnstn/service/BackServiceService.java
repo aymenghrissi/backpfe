@@ -2,7 +2,7 @@ package com.cnstn.service;
 
 import java.util.List;
 
-
+import com.cnstn.entities.Direction;
 import com.cnstn.entities.Service;
 
 
@@ -12,6 +12,8 @@ public interface BackServiceService {
 	Service LoadServiceById(Long id);
 	void deleteService(Long id);
 	Service updateService(Service service);
+	
+
 
 
 }

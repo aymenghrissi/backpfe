@@ -45,9 +45,9 @@ public class DemandeController {
 	        return demande;
 	    }
 	@DeleteMapping("{id}")
-    public ResponseEntity<String> deleteDirection(@PathVariable("id") Long id){
+    public ResponseEntity<Object> deleteDirection(@PathVariable("id") Long id){
         backServiceDemande.deleteDemande(id);
-        return new ResponseEntity<>("demande successfully deleted!", HttpStatus.OK);
+        return ResponseEntity.noContent().build();
     }
 	@PutMapping("{id}")
     
