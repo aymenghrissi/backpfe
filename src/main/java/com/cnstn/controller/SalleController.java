@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cnstn.entities.Reservation;
 import com.cnstn.entities.Salle;
+import com.cnstn.entities.Service;
 import com.cnstn.service.BackServiceSalle;
 
 import lombok.AllArgsConstructor;
@@ -49,13 +50,15 @@ public class SalleController {
         backServiceSalle.deleteSalle(id);
         return ResponseEntity.noContent().build();
     }
-@PutMapping("{id}")
+@PutMapping("/salles/{id}")
     
     public ResponseEntity<Salle> updateSalle(@PathVariable("id") Long id,
-                                           @RequestBody Salle salle){
-        salle.setId(id);
-        Salle updatedSalle = backServiceSalle.updateSalle(salle);
-        return new ResponseEntity<>(updatedSalle, HttpStatus.OK);
+                                           @RequestBody Salle Updatesalle){
+	Salle service=backServiceSalle.LoadSalleById(id); 
+	 service.setNom(Updatesalle.getNom());
+	 service.setNombre_place(Updatesalle.getNombre_place());
+	 Salle directionmaj= backServiceSalle.addSalle(service);
+	 return new ResponseEntity<>(directionmaj, HttpStatus.OK);
     }
 
 

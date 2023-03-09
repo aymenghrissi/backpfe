@@ -28,6 +28,8 @@ public class Employee {
 	private int matricule;
 	private String adresse;
 	private String poste;
+	private String email ;
+	private int tel_interne ;
 
 	@ManyToOne
 	@JoinColumn(name = "service_id")

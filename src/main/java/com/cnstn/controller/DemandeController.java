@@ -49,13 +49,15 @@ public class DemandeController {
         backServiceDemande.deleteDemande(id);
         return ResponseEntity.noContent().build();
     }
-	@PutMapping("{id}")
+	@PutMapping("/demandes/{id}")
     
     public ResponseEntity<Demande_mat_info> updateDemande(@PathVariable("id") Long id,
-                                           @RequestBody Demande_mat_info demande){
-        demande.setId(id);
-        Demande_mat_info updatedDemande = backServiceDemande.updateDemande(demande);
-        return new ResponseEntity<>(updatedDemande, HttpStatus.OK);
+                                           @RequestBody Demande_mat_info Updatedemande){
+    	Demande_mat_info demande=backServiceDemande.LoadDemandeById(id); 
+		 demande.setDate_demmande(Updatedemande.getDate_demmande());
+		 demande.setMateriel_demmander(Updatedemande.getMateriel_demmander());
+		 Demande_mat_info directionmaj= backServiceDemande.addDemande(demande);
+		 return new ResponseEntity<>(directionmaj, HttpStatus.OK);
     }
 
 }

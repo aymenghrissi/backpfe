@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cnstn.entities.Demande_mat_info;
 import com.cnstn.entities.Reservation;
 import com.cnstn.service.BackServiceReservation;
 
@@ -48,13 +49,15 @@ public class ReservationController {
         backServiceReservation.deleteReservation(id);
         return ResponseEntity.noContent().build();
     }
-@PutMapping("{id}")
+@PutMapping("/reservations/{id}")
     
     public ResponseEntity<Reservation> updateReservation(@PathVariable("id") Long id,
-                                           @RequestBody Reservation reservation){
-        reservation.setId(id);
-        Reservation updatedReservation = backServiceReservation.updateReservation(reservation);
-        return new ResponseEntity<>(updatedReservation, HttpStatus.OK);
+                                           @RequestBody Reservation updatereservation){
+	Reservation res=backServiceReservation.LoadReservationById(id); 
+	 res.setDate_d(updatereservation.getDate_d());
+	 res.setDate_f(updatereservation.getDate_f());
+	 Reservation directionmaj= backServiceReservation.addReservation(res);
+	 return new ResponseEntity<>(directionmaj, HttpStatus.OK);
     }
 
 
