@@ -30,6 +30,8 @@ public class Employee {
 	private String poste;
 	private String email ;
 	private int tel_interne ;
+	private String password ;
+	
 
 	@ManyToOne
 	@JoinColumn(name = "service_id")
@@ -48,5 +50,7 @@ public class Employee {
 	@OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
 	//@JsonIgnoreProperties("employee")
 	private List<Demande_mat_info> demandes = new ArrayList<Demande_mat_info>();
+	@ManyToMany(fetch = FetchType.EAGER,  cascade = CascadeType.ALL)
+	private List<approle> approles;
 
 }

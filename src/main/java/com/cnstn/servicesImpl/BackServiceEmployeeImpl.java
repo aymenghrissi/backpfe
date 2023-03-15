@@ -4,15 +4,24 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cnstn.dao.EmployeeRepository;
+import com.cnstn.dao.RoleRepository;
 import com.cnstn.entities.Employee;
+import com.cnstn.entities.approle;
 import com.cnstn.service.BackServiceEmployee;
 @Service
+@Transactional
 public class BackServiceEmployeeImpl implements BackServiceEmployee {
 	@Autowired
 	EmployeeRepository employeeRepository ;
+	@Autowired
+	RoleRepository roleRepository ;
+	
 
 	@Override
 	public List<Employee> AfficherListEmp() {
@@ -50,5 +59,29 @@ public class BackServiceEmployeeImpl implements BackServiceEmployee {
         Employee updatedEmployee = employeeRepository.save(existingEmployee);
         return updatedEmployee;
 	}
+
+	@Override
+	public approle addrole(approle role) {
+		return roleRepository.save(role);
+	}
+
+	@Override
+	public void addRoleToUser(Long id, String RoleName) {
+		Employee employee = employeeRepository.getById(id);
+		approle role = roleRepository.findByRoleName(RoleName);
+		employee.getApproles().add(role);
+		
+	}
+
+	
+
+	
+
+	
+
+	
+
+	
+
 
 }
