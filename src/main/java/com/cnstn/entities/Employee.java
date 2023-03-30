@@ -31,6 +31,7 @@ public class Employee {
 	private String email ;
 	private int tel_interne ;
 	private String password ;
+	private String role ;
 	
 
 	@ManyToOne
