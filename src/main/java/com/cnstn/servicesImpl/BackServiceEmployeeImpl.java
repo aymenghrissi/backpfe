@@ -21,6 +21,8 @@ public class BackServiceEmployeeImpl implements BackServiceEmployee {
 	EmployeeRepository employeeRepository ;
 	@Autowired
 	RoleRepository roleRepository ;
+	 @Autowired
+	    private PasswordEncoder passwordEncoder;
 	
 
 	@Override
@@ -31,6 +33,7 @@ public class BackServiceEmployeeImpl implements BackServiceEmployee {
 
 	@Override
 	public Employee addEmployee(Employee employee) {
+		employee.setPassword(passwordEncoder.encode(employee.getPassword()));
 		return employeeRepository.save(employee);
 	}
 

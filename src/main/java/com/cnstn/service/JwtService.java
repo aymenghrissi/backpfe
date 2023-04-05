@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.cnstn.dao.EmployeeRepository;
@@ -30,12 +31,14 @@ public class JwtService implements UserDetailsService {
 	private JwtUtil jwtUtil;
 	@Autowired
 	private AuthenticationManager authenticationManager;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
 	 Employee employee =employeeRepository.findByEmail(username).get();
-	 if(employee != null ) {
+	 if(employee != null  ) {
 		 return new User(employee.getEmail() ,employee.getPassword(),getAuthorities(employee));
 
 	 }else {
@@ -59,15 +62,13 @@ public class JwtService implements UserDetailsService {
 		return new jwtResponse(employee,newgeneratedToken);
 		
 	}
-	private void authenticate(String userName , String userPassword) throws Exception {
-		try {
-			//authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userName, userPassword));
-
-		}catch(DisabledException e) {
-			throw new Exception("user is disabled");
-		}catch(BadCredentialsException e) {
-			throw new Exception("bad credentials from user");
-		}
+	private void authenticate(String userName, String userPassword) throws Exception {
+	    try {
+	        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userName, userPassword));
+	    } catch (DisabledException e) {
+	        throw new Exception("User is disabled");
+	    } catch (BadCredentialsException e) {
+	        throw new Exception("Invalid username or password");
+	    }
 	}
-
 }
