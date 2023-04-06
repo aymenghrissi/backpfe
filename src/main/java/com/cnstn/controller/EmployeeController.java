@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cnstn.entities.Direction;
 import com.cnstn.entities.Employee;
 import com.cnstn.service.BackServiceEmployee;
+import com.cnstn.servicesImpl.BackServiceEmployeeImpl;
 
 import lombok.AllArgsConstructor;
 
@@ -52,11 +54,21 @@ public class EmployeeController {
 		return ResponseEntity.noContent().build();
 	}
 
-	@PutMapping("{id}")
+	@PutMapping("/employees/{id}")
 
 	public ResponseEntity<Employee> updateEmployee(@PathVariable("id") Long id, @RequestBody Employee employee) {
-		employee.setId(id);
-		Employee updatedEmployee = backServicEmployee.updateEmployee(employee);
-		return new ResponseEntity<>(updatedEmployee, HttpStatus.OK);
+		Employee direction=backServicEmployee.LoadEmployeeById(id);
+		 direction.setNom(employee.getNom());
+		 direction.setPrenom(employee.getPrenom());
+		 direction.setCin(employee.getCin());
+		 direction.setTel(employee.getTel());
+		 direction.setAdresse(employee.getAdresse());
+		 direction.setPoste(employee.getPoste());
+		 direction.setMatricule(employee.getMatricule());
+		 direction.setEmail(employee.getEmail());
+		 direction.setTel_interne(employee.getTel_interne());
+		 direction.setRole(employee.getRole());
+		 Employee directionmaj= backServicEmployee.addEmployee(employee);
+		 return new ResponseEntity<>(directionmaj, HttpStatus.OK);
 	}
 }
