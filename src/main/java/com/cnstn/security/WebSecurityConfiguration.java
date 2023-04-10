@@ -41,7 +41,7 @@ public AuthenticationManager authenticationManagerBean() throws Exception {
 protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.cors();
 		httpSecurity.csrf().disable()
-		.authorizeRequests().antMatchers("/authenticate","/register","/service/list").permitAll()
+		.authorizeRequests().antMatchers("/authenticate","/register","/service/list","/register/user/ip").permitAll()
 		.antMatchers(HttpHeaders.ALLOW).permitAll()
 		.anyRequest().authenticated()
 		.and()
