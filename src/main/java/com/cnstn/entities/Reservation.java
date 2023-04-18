@@ -21,6 +21,9 @@ public class Reservation {
 	private long id;
 	private Date date_d;
 	private Date date_f;
+	private String sal ;
+	private String emp ;
+	
 	
 	@ManyToOne
 	@JoinColumn(name = "employee_id")

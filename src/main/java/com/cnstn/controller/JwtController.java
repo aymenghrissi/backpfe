@@ -11,8 +11,6 @@ import com.cnstn.entities.jwtRequest;
 import com.cnstn.entities.jwtResponse;
 import com.cnstn.service.JwtService;
 
-
-
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class JwtController {
@@ -20,9 +18,7 @@ public class JwtController {
 	private JwtService jwtService ;
 	@PostMapping({"/authenticate"})
 	public jwtResponse createJwtToken(@RequestBody jwtRequest jwtRequest) throws Exception {
-		return  jwtService.createJwtToken(jwtRequest);
-		
+		return  jwtService.createJwtToken(jwtRequest);	
 	}
 	
-
 }

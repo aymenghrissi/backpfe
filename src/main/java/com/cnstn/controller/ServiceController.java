@@ -1,6 +1,12 @@
 package com.cnstn.controller;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,13 +36,31 @@ import lombok.AllArgsConstructor;
 public class ServiceController {
 	@Autowired
 	BackServiceService  backServiceService;
-	
+	@Autowired
+    private HttpServletRequest request;
 	@PostMapping
 	public Service AddService(@RequestBody Service service){
         Service savedService = backServiceService.addService(service);
+        String ipAddress = request.getHeader("X-Forwarded-For");
+	    String hostName = null ;
+		String userAgent = null;
+		 Date date = new Date();
+		    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		    String dateTime = dateFormat.format(date);
+		if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+	        ipAddress = request.getRemoteAddr();
+	         hostName = request.getRemoteHost();
+	         userAgent = request.getHeader("User-Agent");	        
+	    }
+	    try {
+	        FileWriter writer = new FileWriter("C:\\Users\\zifor\\Desktop\\frontcnstn\\frontendcnstn\\src\\assets\\logs.txt", true); // set the second argument to true to append to the file
+	        writer.write("ajouter un service :"+ipAddress + ", " + hostName  + ", " + userAgent + ", " + dateTime +  "\n");
+	        writer.close();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
         return savedService;
     }
-	
 	@GetMapping("list")
 	 public List<Service> getAllService(){
 	        List<Service> services = backServiceService.AfficherListService();
@@ -50,16 +74,51 @@ public class ServiceController {
 	@DeleteMapping("{id}")
     public ResponseEntity<Object> deleteService(@PathVariable("id") Long id){
         backServiceService.deleteService(id);
+        String ipAddress = request.getHeader("X-Forwarded-For");
+	    String hostName = null ;
+		String userAgent = null;
+		 Date date = new Date();
+		    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		    String dateTime = dateFormat.format(date);
+		if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+	        ipAddress = request.getRemoteAddr();
+	         hostName = request.getRemoteHost();
+	         userAgent = request.getHeader("User-Agent");
+	    }
+	    try {
+	        FileWriter writer = new FileWriter("C:\\Users\\zifor\\Desktop\\frontcnstn\\frontendcnstn\\src\\assets\\logs.txt", true); // set the second argument to true to append to the file
+	        writer.write("effacer une service :"+ipAddress + ", " + hostName  + ", " + userAgent + ", " + dateTime +  "\n");
+	        writer.close();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
         return ResponseEntity.noContent().build();
     }
 @PutMapping("/services/{id}")
-    
     public ResponseEntity<Service> updateService(@PathVariable("id") Long id,
                                            @RequestBody Service Updateservice){
 	Service service=backServiceService.LoadServiceById(id); 
 	 service.setNom(Updateservice.getNom());
 	 service.setDescription(Updateservice.getDescription());
 	 Service directionmaj= backServiceService.addService(service);
+	 String ipAddress = request.getHeader("X-Forwarded-For");
+	    String hostName = null ;
+		String userAgent = null;
+		 Date date = new Date();
+		    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		    String dateTime = dateFormat.format(date);
+		if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+	        ipAddress = request.getRemoteAddr();
+	         hostName = request.getRemoteHost();
+	         userAgent = request.getHeader("User-Agent"); 
+	    }
+	    try {
+	        FileWriter writer = new FileWriter("C:\\Users\\zifor\\Desktop\\frontcnstn\\frontendcnstn\\src\\assets\\logs.txt", true); // set the second argument to true to append to the file
+	        writer.write("mise a jour d'un service :"+ipAddress + ", " + hostName  + ", " + userAgent + ", " + dateTime +  "\n");
+	        writer.close();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
 	 return new ResponseEntity<>(directionmaj, HttpStatus.OK);
     }
 

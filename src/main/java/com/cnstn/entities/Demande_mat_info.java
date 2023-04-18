@@ -17,6 +17,7 @@ public class Demande_mat_info {
 	private long id;
 	private Date date_demmande;
 	private String materiel_demmander;
+	private String emp;
 	
 	@ManyToOne
 	@JoinColumn(name = "employee_id")

@@ -41,8 +41,7 @@ public class RegisterController {
 			if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
 		        ipAddress = request.getRemoteAddr();
 		         hostName = request.getRemoteHost();
-		         userAgent = request.getHeader("User-Agent");
-		        
+		         userAgent = request.getHeader("User-Agent");		        
 		    }
 		    try {
 		        FileWriter writer = new FileWriter("C:\\Users\\zifor\\Desktop\\frontcnstn\\frontendcnstn\\src\\assets\\logs.txt", true); // set the second argument to true to append to the file
@@ -53,29 +52,5 @@ public class RegisterController {
 		    }
 		return savedEmp;
 	}
-	@GetMapping("/user/ip")
-	public String getUserIP() {
-	    String ipAddress = request.getHeader("X-Forwarded-For");
-	    String hostName = null ;
-		String userAgent = null;
-		 Date date = new Date();
-		    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		    String dateTime = dateFormat.format(date);
-		if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
-	        ipAddress = request.getRemoteAddr();
-	         hostName = request.getRemoteHost();
-	         userAgent = request.getHeader("User-Agent");
-	        
-	    }
-	    try {
-	        FileWriter writer = new FileWriter("C:\\Users\\zifor\\Desktop\\frontcnstn\\frontendcnstn\\src\\assets\\logs.txt", true); // set the second argument to true to append to the file
-	        writer.write("registred :"+ ipAddress + ", " + hostName  + ", " + userAgent + ", " + dateTime +  "\n");
-	        writer.write("\n");
-	        writer.close();
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
-	    return ipAddress;
-	}
-
+	
 }

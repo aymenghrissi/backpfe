@@ -1,6 +1,12 @@
 package com.cnstn.controller;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,9 +35,29 @@ import lombok.AllArgsConstructor;
 public class SalleController {
 	@Autowired
 	BackServiceSalle backServiceSalle;
+	@Autowired
+    private HttpServletRequest request;
 	@PostMapping
 	public Salle AddSalle(@RequestBody Salle salle){
         Salle savedSalle = backServiceSalle.addSalle(salle);
+        String ipAddress = request.getHeader("X-Forwarded-For");
+	    String hostName = null ;
+		String userAgent = null;
+		 Date date = new Date();
+		    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		    String dateTime = dateFormat.format(date);
+		if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+	        ipAddress = request.getRemoteAddr();
+	         hostName = request.getRemoteHost();
+	         userAgent = request.getHeader("User-Agent");
+	    }
+	    try {
+	        FileWriter writer = new FileWriter("C:\\Users\\zifor\\Desktop\\frontcnstn\\frontendcnstn\\src\\assets\\logs.txt", true); // set the second argument to true to append to the file
+	        writer.write("ajouter une salle :"+ipAddress + ", " + hostName  + ", " + userAgent + ", " + dateTime +  "\n");
+	        writer.close();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
         return savedSalle;
     }
 	
@@ -48,6 +74,24 @@ public class SalleController {
 	@DeleteMapping("{id}")
     public ResponseEntity<Object> deleteSalle(@PathVariable("id") Long id){
         backServiceSalle.deleteSalle(id);
+        String ipAddress = request.getHeader("X-Forwarded-For");
+	    String hostName = null ;
+		String userAgent = null;
+		 Date date = new Date();
+		    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		    String dateTime = dateFormat.format(date);
+		if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+	        ipAddress = request.getRemoteAddr();
+	         hostName = request.getRemoteHost();
+	         userAgent = request.getHeader("User-Agent");   
+	    }
+	    try {
+	        FileWriter writer = new FileWriter("C:\\Users\\zifor\\Desktop\\frontcnstn\\frontendcnstn\\src\\assets\\logs.txt", true); // set the second argument to true to append to the file
+	        writer.write("effacer une salle :"+ipAddress + ", " + hostName  + ", " + userAgent + ", " + dateTime +  "\n");
+	        writer.close();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
         return ResponseEntity.noContent().build();
     }
 @PutMapping("/salles/{id}")
@@ -58,8 +102,26 @@ public class SalleController {
 	 service.setNom(Updatesalle.getNom());
 	 service.setNombre_place(Updatesalle.getNombre_place());
 	 Salle directionmaj= backServiceSalle.addSalle(service);
+	 String ipAddress = request.getHeader("X-Forwarded-For");
+	    String hostName = null ;
+		String userAgent = null;
+		 Date date = new Date();
+		    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		    String dateTime = dateFormat.format(date);
+		if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+	        ipAddress = request.getRemoteAddr();
+	         hostName = request.getRemoteHost();
+	         userAgent = request.getHeader("User-Agent");
+	        
+	    }
+	    try {
+	        FileWriter writer = new FileWriter("C:\\Users\\zifor\\Desktop\\frontcnstn\\frontendcnstn\\src\\assets\\logs.txt", true); // set the second argument to true to append to the file
+	        writer.write("mise a jour une salle :"+ipAddress + ", " + hostName  + ", " + userAgent + ", " + dateTime +  "\n");
+	        writer.close();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
 	 return new ResponseEntity<>(directionmaj, HttpStatus.OK);
     }
-
 
 }
