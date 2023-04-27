@@ -16,10 +16,15 @@ services:
     environment:
       - SPRING_DATASOURCE_PASSWORD=root
       - SERVER_PORT=8082
-      - SPRING_DATASOURCE_URL=jdbc:mysql://myapp-mysql:3306/BackCNSTN?serverTimezone=UTC
+      - SPRING_DATASOURCE_URL=jdbc:mysql://myapp-mysql:3306/BackCNSTN?createDatabaseIfNotExist=true&serverTimezone=UTC
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQL8Dialect
-
+  front:
+    image: front
+    depends_on:
+      - myapp-main	
+    ports:
+      - 4200:80
 
   
