@@ -12,7 +12,7 @@ import com.cnstn.entities.jwtResponse;
 import com.cnstn.service.JwtService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200,https://frontcnstn.vercel.app")
 public class JwtController {
 	@Autowired
 	private JwtService jwtService ;
