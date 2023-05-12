@@ -32,10 +32,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		 if (request.getMethod().equals("OPTIONS")) {
-		        response.setStatus(HttpServletResponse.SC_OK);
-		        return;
-		    }
+		response.setHeader("Referrer-Policy", "no-referrer-when-downgrade");
+		
+		    
 	 final  String header =	request.getHeader("Authorization");
 	 String jwtToken = null ;
 	 String userName = null;

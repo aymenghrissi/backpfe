@@ -12,12 +12,13 @@ import com.cnstn.entities.jwtResponse;
 import com.cnstn.service.JwtService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
+//@CrossOrigin(origins = "*", maxAge = 3600 ,allowedHeaders = "*")
 public class JwtController {
 	@Autowired
 	private JwtService jwtService ;
 	@PostMapping({"/authenticate"})
 	public jwtResponse createJwtToken(@RequestBody jwtRequest jwtRequest) throws Exception {
+		
 		return  jwtService.createJwtToken(jwtRequest);	
 	}
 	
